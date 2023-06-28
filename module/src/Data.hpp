@@ -11,24 +11,30 @@
 #include <SFML/Audio.hpp>
 
 #include <windows.h>
-class Data{
-private:
-    std::vector<std::pair<std::string, sf::Texture>> textures_;
-    std::vector<std::pair<std::string, sf::Font>> fonts_;
-    std::vector<std::pair<std::string, sf::Sound>> sounds_;
+namespace Engine{
 
-    std::string texturesPath = "textures";
-    std::string fontsPath = "fonts";
-    std::string soundsPath = "sounds";
+    class Data{
+    private:
+        std::vector<std::pair<std::string, sf::Texture>> textures_;
+        std::vector<std::pair<std::string, sf::Font>> fonts_;
+        std::vector<std::pair<std::string, sf::Sound>> sounds_;
 
-    void loadTextures();
-    void loadFonts();
-    void loadSounds();
+        std::string texturesPath = "textures";
+        std::string fontsPath = "fonts";
+        std::string soundsPath = "sounds";
 
-public:
-    Data();
+        void loadTextures();
+        void loadFonts();
+        void loadSounds();
 
-    void loadResources();
-};
+    public:
+        Data();
+
+        void loadResources();
+
+        sf::Texture* getTexture(const std::string& name);
+    };
+}
+
 
 #endif //NFFSMODULE_DATA_HPP

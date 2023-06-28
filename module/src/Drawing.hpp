@@ -3,46 +3,53 @@
 
 #include <SFML/Graphics.hpp>
 
-class Drawing{
-public:
-    Drawing();
+namespace Engine{
 
-    Drawing(sf::Texture *texture);
+    class Drawing{
+    public:
+        Drawing();
 
-    void loadTexture(sf::Texture *texture);
+        Drawing(sf::Texture *texture, sf::RenderWindow *winPtr);
 
-    void setPosition(sf::Vector2i vec);
+        void loadTexture(sf::Texture *texture);
 
-    void moveBy(sf::Vector2i vec);
+        void setPosition(sf::Vector2f vec);
 
-    void resizeTo(sf::Vector2i vec);
+        void moveBy(sf::Vector2f vec);
 
-    void setRenderRect(sf::Vector2i start, sf::Vector2i end);
+        void resizeTo(sf::Vector2u vec);
 
-    void rotateBy(int degree);
+        void setRenderRect(sf::Vector2i start, sf::Vector2i end);
 
-    void setTransparency(unsigned char alpha);
+        void rotateBy(int degree);
 
-    void drawTo(sf::RenderWindow &window);
+        void setTransparency(unsigned char alpha);
 
-    void setVisible(bool isVisible);
+        void drawTo();
 
-    void setAlign(Drawing& drawing, std::string side);
+        void setVisible(bool isVisible);
 
-    void setOutline(int width, sf::Color color);
+        void setAlign(Drawing& drawing, std::string side);
 
-private:
-    sf::Sprite sprite_;
+        void setOutline(int width, sf::Color color);
 
-    unsigned char alpha_{255};
+    private:
+        sf::RenderWindow *winPtr_;
 
-    bool isVisible_{true};
+        sf::Sprite sprite_;
 
-    int currentRotation{0};
+        unsigned char alpha_{255};
 
-    sf::Vector2i currentSize{0, 0};
+        bool isVisible_{true};
 
-    sf::Vector2i currentPosition{0, 0};
-};
+        int currentRotation{0};
+
+        sf::Vector2u currentSize{0, 0};
+
+        sf::Vector2f currentPosition{0, 0};
+    };
+}
+
+
 
 #endif //NFFSMODULE_DRAWING_HPP
