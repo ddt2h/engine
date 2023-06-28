@@ -29,9 +29,13 @@ namespace Engine{
 
         void setVisible(bool isVisible);
 
-        void setAlign(Drawing& drawing, std::string side);
+        void setAlign(Drawing& drawing, int side);
 
         void setOutline(int width, sf::Color color);
+
+        sf::Vector2f getPosition();
+
+        sf::Vector2u getSize();
 
     private:
         sf::RenderWindow *winPtr_;
@@ -47,6 +51,8 @@ namespace Engine{
         sf::Vector2u currentSize{0, 0};
 
         sf::Vector2f currentPosition{0, 0};
+
+        sf::RectangleShape outline;
     };
 }
 
