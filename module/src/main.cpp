@@ -4,6 +4,8 @@
 
 #include "Window.hpp"
 
+#include "Text.hpp"
+
 int main(){
     Engine::Data data;
     data.loadResources();
@@ -18,10 +20,13 @@ int main(){
     Engine::Drawing drawing_2(data.getTexture("124.jpg"), window.getWindowPtr());
     drawing_2.setAlign(drawing, 1);
 
+    Engine::Text text(window.getWindowPtr(), data.getFont("arial.ttf"));
+
     for(;;){
         window.drawEverything();
         drawing.drawTo();
-        drawing_2.drawTo();
+        drawing_2.drawTo(data.getShader("flow.frag"));
+        text.drawTo();
         window.finishDrawing();
     }
     return 0;

@@ -16,9 +16,17 @@ Engine::Drawing::Drawing(sf::Texture *texture, sf::RenderWindow *winPtr) : winPt
 
 void Engine::Drawing::drawTo() {
     if (isVisible_){
-        winPtr_->draw(this->sprite_);
+        winPtr_->draw(this->sprite_, this->shader_);
         winPtr_->draw(this->outline);
     }
+}
+
+void Engine::Drawing::setShaderUniform(const std::string& uniform, float value) {
+    this->shader_->setUniform(uniform, value);
+}
+
+void Engine::Drawing::setShader(sf::Shader *shader) {
+    this->shader_ = shader;
 }
 
 void Engine::Drawing::setPosition(sf::Vector2f vec) {

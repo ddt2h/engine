@@ -54,15 +54,64 @@ void Engine::Data::loadFonts() {
     std::cout << "Data: Font loading finished, total -> " << std::to_string(fonts_.size()) << std::endl;
 }
 
+void Engine::Data::loadShaders() {
+    if (!sf::Shader::isAvailable()) {
+       std::cout << "Shaders are not supported on this system." << std::endl;
+       return;
+    }
+
+    struct stat sb;
+    if (stat(shaderPath.c_str(), &sb) != 0){
+        std::cout << "Data: Can't find shaders directory!" << std::endl;
+        return;
+    }
+
+    std::cout << "Data: Found shaders directory, processing..." << std::endl;
+
+    for (const auto & entry : std::filesystem::directory_iterator(shaderPath)){
+        sf::Shader *shaderPtr = new sf::Shader;
+        std::string extension = entry.path().extension().string();
+        if (extension == "vert")
+            shaderPtr->loadFromFile(entry.path().string(), sf::Shader::Vertex);
+        if (extension == "frag")
+            shaderPtr->loadFromFile(entry.path().string(), sf::Shader::Fragment);
+        std::pair<std::basic_string<char>, sf::Shader*> pair;
+        pair.first = std::filesystem::path(entry.path()).filename().string();
+        pair.second = shaderPtr;
+        shaders_.push_back(pair);
+
+        std::cout << "Data: Loaded shader -> " << pair.first << std::endl;
+    }
+
+    std::cout << "Data: Shader loading finished, total -> " << std::to_string(shaders_.size()) << std::endl;
+}
+
 void Engine::Data::loadResources() {
     loadTextures();
     loadFonts();
+    loadShaders();
 }
 
 sf::Texture* Engine::Data::getTexture(const std::string& name) {
     for (int i = 0; i < textures_.size(); i++){
         if (textures_[i].first == name)
             return &textures_[i].second;
+    }
+    return nullptr;
+}
+
+sf::Font* Engine::Data::getFont(const std::string& name){
+    for (int i = 0; i < fonts_.size(); i++){
+        if (fonts_[i].first == name)
+            return &fonts_[i].second;
+    }
+    return nullptr;
+}
+
+sf::Shader* Engine::Data::getShader(const std::string& name){
+    for (int i = 0; i < shaders_.size(); i++){
+        if (shaders_[i].first == name)
+            return shaders_[i].second;
     }
     return nullptr;
 }

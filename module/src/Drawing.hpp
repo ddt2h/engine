@@ -27,6 +27,10 @@ namespace Engine{
 
         void drawTo();
 
+        void setShader(sf::Shader *shader);
+
+        void setShaderUniform(const std::string& uniform, float value);
+
         void setVisible(bool isVisible);
 
         void setAlign(Drawing& drawing, int side);
@@ -53,6 +57,8 @@ namespace Engine{
         sf::Vector2f currentPosition{0, 0};
 
         sf::RectangleShape outline;
+
+        sf::Shader *shader_;
     };
 }
 
