@@ -31,6 +31,10 @@ namespace Engine{
 
         void setShaderUniform(const std::string& uniform, float value);
 
+        void setSpriteSheet(sf::Vector2u size);
+
+        void nextSpriteSheetAnimation();
+
         void setVisible(bool isVisible);
 
         void setAlign(Drawing& drawing, int side);
@@ -50,7 +54,15 @@ namespace Engine{
 
         bool isVisible_{true};
 
+        bool isSpriteSheet{false};
+
         int currentRotation{0};
+
+        unsigned int currentSheetIDX{0};
+
+        unsigned int currentSheetIDY{0};
+
+        sf::Vector2u spriteSheetSingleSize{};
 
         sf::Vector2u currentSize{0, 0};
 

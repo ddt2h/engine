@@ -6,6 +6,8 @@ namespace Engine {
 
     class Text{
     public:
+        Text();
+
         Text(sf::RenderWindow *winPtr, sf::Font *font = nullptr, sf::Vector2f position = {0, 0},
              std::string value = "Default");
 

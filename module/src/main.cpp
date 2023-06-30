@@ -12,22 +12,23 @@ int main(){
 
     Engine::Window window;
 
-    Engine::Drawing drawing(data.getTexture("123.jpg"), window.getWindowPtr());
-    drawing.setPosition({50, 50});
-    drawing.resizeTo({100, 100});
-    drawing.setOutline(3, sf::Color::White);
-
-    Engine::Drawing drawing_2(data.getTexture("124.jpg"), window.getWindowPtr());
-    drawing_2.setAlign(drawing, 1);
+    Engine::Drawing drawing_2(data.getTexture("spritesheet.png"), window.getWindowPtr());
+    drawing_2.setSpriteSheet({60, 64});
+    drawing_2.setPosition({100, 0});
 
     Engine::Text text(window.getWindowPtr(), data.getFont("arial.ttf"));
 
     for(;;){
         window.drawEverything();
-        drawing.drawTo();
-        drawing_2.drawTo(data.getShader("flow.frag"));
+
         text.drawTo();
+
+        drawing_2.nextSpriteSheetAnimation();
+        drawing_2.drawTo();
+
         window.finishDrawing();
+
+        Sleep(50);
     }
     return 0;
 }

@@ -1,5 +1,9 @@
 #include "Text.hpp"
 
+Engine::Text::Text() {
+
+}
+
 Engine::Text::Text(sf::RenderWindow *winPtr, sf::Font *font, sf::Vector2f position, std::string value) {
     setFont(font);
     setPosition(position);

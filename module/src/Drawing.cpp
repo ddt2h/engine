@@ -15,10 +15,21 @@ Engine::Drawing::Drawing(sf::Texture *texture, sf::RenderWindow *winPtr) : winPt
 }
 
 void Engine::Drawing::drawTo() {
-    if (isVisible_){
+    if (!isVisible_)
+        return;
+
+    if (isSpriteSheet)
+        sprite_.setTextureRect(sf::IntRect(spriteSheetSingleSize.x * currentSheetIDX,
+                                           spriteSheetSingleSize.y * currentSheetIDY,
+                                           spriteSheetSingleSize.x,
+                                           spriteSheetSingleSize.y));
+
+    if (this->shader_->isAvailable())
         winPtr_->draw(this->sprite_, this->shader_);
-        winPtr_->draw(this->outline);
-    }
+    else
+        winPtr_->draw(this->sprite_);
+
+    winPtr_->draw(this->outline);
 }
 
 void Engine::Drawing::setShaderUniform(const std::string& uniform, float value) {
@@ -27,6 +38,25 @@ void Engine::Drawing::setShaderUniform(const std::string& uniform, float value) 
 
 void Engine::Drawing::setShader(sf::Shader *shader) {
     this->shader_ = shader;
+}
+
+void Engine::Drawing::setSpriteSheet(sf::Vector2u size) {
+    this->isSpriteSheet = true;
+    this->spriteSheetSingleSize = size;
+}
+
+void Engine::Drawing::nextSpriteSheetAnimation() {
+    currentSheetIDX++;
+
+    if (spriteSheetSingleSize.x * (currentSheetIDX + 1) > currentSize.x){
+        currentSheetIDY++;
+        currentSheetIDX = 0;
+    }
+    if (spriteSheetSingleSize.y * (currentSheetIDY + 1) > currentSize.y) {
+        currentSheetIDX = 0;
+        currentSheetIDY = 0;
+    }
+
 }
 
 void Engine::Drawing::setPosition(sf::Vector2f vec) {
