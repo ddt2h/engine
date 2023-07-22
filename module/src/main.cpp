@@ -6,29 +6,26 @@
 
 #include "Text.hpp"
 
+#include "DummyObject.hpp"
+
 int main(){
     Engine::Data data;
     data.loadResources();
 
     Engine::Window window;
 
-    Engine::Drawing drawing_2(data.getTexture("spritesheet.png"), window.getWindowPtr());
-    drawing_2.setSpriteSheet({60, 64});
-    drawing_2.setPosition({100, 0});
-
-    Engine::Text text(window.getWindowPtr(), data.getFont("arial.ttf"));
+    DummyObject o;
+    o.create(window.getWindowPtr(), &data, window.getLatestEvent());
 
     for(;;){
         window.drawEverything();
 
-        text.drawTo();
-
-        drawing_2.nextSpriteSheetAnimation();
-        drawing_2.drawTo();
+        o.update();
+        o.draw();
 
         window.finishDrawing();
 
-        Sleep(50);
+      //  Sleep(50);
     }
     return 0;
 }

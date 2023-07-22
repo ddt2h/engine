@@ -11,6 +11,8 @@ namespace Engine{
 
         Drawing(sf::Texture *texture, sf::RenderWindow *winPtr);
 
+        void initialize(sf::Texture *texture, sf::RenderWindow *winPtr);
+
         void loadTexture(sf::Texture *texture);
 
         void setPosition(sf::Vector2f vec);
@@ -55,6 +57,8 @@ namespace Engine{
         bool isVisible_{true};
 
         bool isSpriteSheet{false};
+
+        bool isShadered{false};
 
         int currentRotation{0};
 

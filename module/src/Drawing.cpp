@@ -10,12 +10,18 @@ void Engine::Drawing::loadTexture(sf::Texture *texture)  {
 }
 
 Engine::Drawing::Drawing(sf::Texture *texture, sf::RenderWindow *winPtr) : winPtr_(winPtr) {
+    this->initialize(texture, winPtr);
+}
+
+void Engine::Drawing::initialize(sf::Texture *texture, sf::RenderWindow *winPtr) {
     if (texture != nullptr)
         loadTexture(texture);
+
+    this->winPtr_ = winPtr;
 }
 
 void Engine::Drawing::drawTo() {
-    if (!isVisible_)
+    if (!isVisible_ || winPtr_ == nullptr)
         return;
 
     if (isSpriteSheet)
@@ -24,7 +30,7 @@ void Engine::Drawing::drawTo() {
                                            spriteSheetSingleSize.x,
                                            spriteSheetSingleSize.y));
 
-    if (this->shader_->isAvailable())
+    if (isShadered)
         winPtr_->draw(this->sprite_, this->shader_);
     else
         winPtr_->draw(this->sprite_);
@@ -38,6 +44,7 @@ void Engine::Drawing::setShaderUniform(const std::string& uniform, float value) 
 
 void Engine::Drawing::setShader(sf::Shader *shader) {
     this->shader_ = shader;
+    isShadered = true;
 }
 
 void Engine::Drawing::setSpriteSheet(sf::Vector2u size) {
@@ -123,5 +130,7 @@ sf::Vector2f Engine::Drawing::getPosition() {
 sf::Vector2u Engine::Drawing::getSize() {
     return this->currentSize;
 }
+
+
 
 

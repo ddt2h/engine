@@ -23,9 +23,11 @@ void Engine::Text::moveBy(sf::Vector2f vec) {
 }
 
 void Engine::Text::setFont(sf::Font *font) {
-    if (font == nullptr) { this->fontPtr->loadFromFile("C:/Windows/Fonts/arial.ttf"); }
-    else
-        this->fontPtr = font;
+    if (font == nullptr){
+        return;
+    }
+
+    this->fontPtr = font;
 
     text.setFont(*fontPtr);
 

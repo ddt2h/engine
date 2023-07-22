@@ -1,12 +1,17 @@
 #ifndef NFFSMODULE_WINDOW_HPP
 #define NFFSMODULE_WINDOW_HPP
 #include <SFML/Graphics.hpp>
+#include <iostream>
 namespace Engine{
 
     class Window
     {
     private:
         sf::RenderWindow window;
+
+        void pollEvents();
+
+        sf::Event event;
     public:
         Window();
 
@@ -15,6 +20,8 @@ namespace Engine{
         void drawEverything();
 
         void finishDrawing();
+
+        sf::Event* getLatestEvent();
 
         sf::RenderWindow* getWindowPtr();
     };

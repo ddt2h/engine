@@ -1,6 +1,7 @@
 #ifndef NFFSMODULE_TEXT_HPP
 #define NFFSMODULE_TEXT_HPP
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 namespace Engine {
 
