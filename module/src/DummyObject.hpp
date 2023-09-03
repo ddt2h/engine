@@ -4,6 +4,7 @@
 #include "AbstractEngineObject.hpp"
 
 #include "Drawing.hpp"
+#include "Text.hpp"
 
 class DummyObject : public AbstractEngineObject{
 public:
@@ -11,12 +12,13 @@ public:
 
     void draw() override;
 
-    void createImpl(sf::RenderWindow *windowPtr, Engine::Data *dataPtr, sf::Event *windowEventPtr) override;
-
 private:
     Engine::Drawing drawing;
+    Engine::Text text;
 
     void processEventsImpl() override;
+
+    void createImpl(Engine::Window *windowPtr,  Engine::Data *dataPtr) override;
 
     void updateImpl() override;
 };

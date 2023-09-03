@@ -13,6 +13,8 @@ namespace Engine{
 
         void initialize(sf::Texture *texture, sf::RenderWindow *winPtr);
 
+        void initialize(sf::Vector2f size, sf::RenderWindow* winPtr);
+
         void loadTexture(sf::Texture *texture);
 
         void setPosition(sf::Vector2f vec);
@@ -21,9 +23,19 @@ namespace Engine{
 
         void resizeTo(sf::Vector2u vec);
 
+        void rescaleTo(sf::Vector2f vec);
+
+        void setCentration();
+
+        void setColor(sf::Color newColor);
+
+        void setBackgroundColor(sf::Color newColor);
+
         void setRenderRect(sf::Vector2i start, sf::Vector2i end);
 
-        void rotateBy(int degree);
+        void rotateBy(double degree);
+
+        void setRotation(double degree);
 
         void setTransparency(unsigned char alpha);
 

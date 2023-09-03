@@ -20,6 +20,7 @@ void Engine::Data::loadTextures() {
     for (const auto & entry : std::filesystem::directory_iterator(texturesPath)){
         sf::Texture *texPtr = new sf::Texture;
         texPtr->loadFromFile(entry.path().string());
+        texPtr->setSmooth(true);
         std::pair<std::string, sf::Texture> pair;
         pair.first = std::filesystem::path(entry.path()).filename().string();
         pair.second = *texPtr;

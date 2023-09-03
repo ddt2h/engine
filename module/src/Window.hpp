@@ -2,6 +2,7 @@
 #define NFFSMODULE_WINDOW_HPP
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <thread>
 namespace Engine{
 
     class Window
@@ -12,6 +13,14 @@ namespace Engine{
         void pollEvents();
 
         sf::Event event;
+
+        sf::Clock deltaClock{};
+
+        sf::Font defaultFont{};
+
+        double deltaTime{};
+
+        void updateDeltaTime();
     public:
         Window();
 
@@ -19,7 +28,15 @@ namespace Engine{
 
         void drawEverything();
 
+        sf::Font* getFontPtr();
+
         void finishDrawing();
+
+        void setWindowSize(sf::Vector2u size);
+
+        sf::Vector2u getWindowSize();
+
+        double *getDeltaTimePtr();
 
         sf::Event* getLatestEvent();
 

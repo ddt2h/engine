@@ -3,7 +3,8 @@
 
 #include <map>
 #include <string>
-#include <SFML/Graphics/RenderWindow.hpp>
+
+#include "Window.hpp"
 
 #include "Data.hpp"
 
@@ -23,13 +24,13 @@ public:
 
     void invertState(std::string stateName);
 
-    void create(sf::RenderWindow *windowPtr,  Engine::Data *dataPtr, sf::Event *windowEventPtr);
+    void create(Engine::Window *windowPtr,  Engine::Data *dataPtr);
 
     void update();
 
     void processEvents();
 
-    virtual void createImpl(sf::RenderWindow *windowPtr, Engine::Data *dataPtr, sf::Event *windowEventPtr);
+    virtual void createImpl(Engine::Window *windowPtr, Engine::Data *dataPtr);
 
     virtual void updateImpl();
 
@@ -40,12 +41,14 @@ public:
 private:
     std::map<std::string, bool> states;
 
-    Engine::Data *dataPtr;
-
 protected:
     sf::RenderWindow *windowPtr;
 
+    double *deltaPtr;
+
     sf::Event *windowEventPtr;
+
+    Engine::Data *dataPtr;
 };
 
 #endif //NFFSMODULE_ABSTRACTENGINEOBJECT_HPP

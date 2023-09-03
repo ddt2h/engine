@@ -20,8 +20,20 @@ void Engine::Drawing::initialize(sf::Texture *texture, sf::RenderWindow *winPtr)
     this->winPtr_ = winPtr;
 }
 
+void Engine::Drawing::initialize(sf::Vector2f size, sf::RenderWindow* winPtr)
+{
+    sf::Texture *newTexture = new sf::Texture();
+    //Nice memory leak though
+
+    newTexture->create(size.x, size.y);
+
+    loadTexture(newTexture);
+
+    this->winPtr_ = winPtr;
+}
+
 void Engine::Drawing::drawTo() {
-    if (!isVisible_ || winPtr_ == nullptr)
+    if (!isVisible_ || winPtr_ == nullptr || this->sprite_.getTexture() == nullptr)
         return;
 
     if (isSpriteSheet)
@@ -79,7 +91,12 @@ void Engine::Drawing::moveBy(sf::Vector2f vec) {
 
 void Engine::Drawing::resizeTo(sf::Vector2u vec) {
     sprite_.setScale((float)vec.x / (float)currentSize.x, (float)vec.y / (float)currentSize.y);
+    outline.setSize({ (float)vec.x, (float)vec.y });
     this->currentSize = vec;
+}
+
+void Engine::Drawing::rescaleTo(sf::Vector2f vec) {
+    sprite_.setScale((float)vec.x, (float)vec.y);
 }
 
 void Engine::Drawing::setTransparency(unsigned char alpha) {
@@ -91,13 +108,20 @@ void Engine::Drawing::setVisible(bool isVisible) {
     this->isVisible_ = isVisible;
 }
 
-void Engine::Drawing::rotateBy(int degree) {
-    this->sprite_.rotate((float)degree);
+void Engine::Drawing::rotateBy(double degree) {
+    this->sprite_.setOrigin(this->currentSize.x / 2, this->currentSize.y / 2);
+    this->sprite_.rotate(degree);
     this->currentRotation += degree;
 }
 
+void Engine::Drawing::setRotation(double degree) {
+    this->sprite_.setOrigin(this->currentSize.x / 2, this->currentSize.y / 2);
+    this->sprite_.setRotation(degree);
+    this->currentRotation = degree;
+}
+
 void Engine::Drawing::setOutline(int width, sf::Color color) {
-    outline.setFillColor(sf::Color::Transparent);
+   // outline.setFillColor(sf::Color::Transparent);
     outline.setOutlineColor(color);
     outline.setOutlineThickness(width);
     outline.setSize({(float)currentSize.x, (float)currentSize.y});
@@ -130,6 +154,24 @@ sf::Vector2f Engine::Drawing::getPosition() {
 sf::Vector2u Engine::Drawing::getSize() {
     return this->currentSize;
 }
+
+void Engine::Drawing::setCentration() {
+    this->sprite_.setOrigin(this->currentSize.x / 2, this->currentSize.y / 2);
+}
+
+void Engine::Drawing::setColor(sf::Color newColor)
+{
+    this->sprite_.setColor(newColor);
+}
+
+void Engine::Drawing::setBackgroundColor(sf::Color newColor)
+{
+    this->outline.setFillColor(newColor);
+}
+
+
+
+
 
 
 

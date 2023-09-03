@@ -52,15 +52,16 @@ void AbstractEngineObject::draw() {
 }
 
 
-void AbstractEngineObject::create(sf::RenderWindow *windowPtr,  Engine::Data *dataPtr, sf::Event *windowEventPtr) {
-    this->windowPtr = windowPtr;
+void AbstractEngineObject::create(Engine::Window *windowPtr,  Engine::Data *dataPtr) {
+    this->windowPtr = windowPtr->getWindowPtr();
     this->dataPtr = dataPtr;
-    this->windowEventPtr = windowEventPtr;
+    this->windowEventPtr = windowPtr->getLatestEvent();
+    this->deltaPtr = windowPtr->getDeltaTimePtr();
 
-    createImpl(windowPtr, dataPtr, windowEventPtr);
+    createImpl(windowPtr, dataPtr);
 }
 
-void AbstractEngineObject::createImpl(sf::RenderWindow *windowPtr, Engine::Data *dataPtr, sf::Event *windowEventPtr) {
+void AbstractEngineObject::createImpl(Engine::Window *windowPtr, Engine::Data *dataPtr) {
 
 }
 
